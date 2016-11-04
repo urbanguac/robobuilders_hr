@@ -192,12 +192,12 @@ public class MainActivity extends ActionBarActivity {
         text.setText("00");
         h.postDelayed(new Runnable() {
             public void run() {
-                text.setText("" + (100 + (Math.random() * 20))); //set random 100 vary 20
+                text.setText("" + ((int)(((100 + (Math.random() * 10)))))+" BPM"); //set random 100 vary 20
                 h.postDelayed(this, delay);
             }
         }, delay);
 
-        
+
 
         CheckBt();
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);

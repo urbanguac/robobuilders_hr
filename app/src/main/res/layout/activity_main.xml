@@ -7,8 +7,7 @@
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:id="@+id/textView"
-        android:textSize="40dp" android:padding="5d
-        p"
+        android:textSize="288dp" android:padding="5dp"
          android:gravity="center" />
 
 </RelativeLayout>
