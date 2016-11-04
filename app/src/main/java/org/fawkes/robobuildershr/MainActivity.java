@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -30,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
     ToggleButton OnOff;
     TextView Result;
     private String dataToSend;
-
+    public RelativeLayout rl;
     private static final String TAG = "Jon";
     private BluetoothAdapter mBluetoothAdapter = null;
     private BluetoothSocket btSocket = null;
@@ -45,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
     int readBufferPosition = 0;
     byte[] readBuffer = new byte[1024];
 
+    public int iterations = 0; public int beatsPerMin = 0;
 
     private void CheckBt() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -186,13 +188,23 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        rl = (RelativeLayout) findViewById(R.id.relativo);
         text = new TextView(this);
         text = (TextView)findViewById(R.id.textView);
         text.setText("00");
         h.postDelayed(new Runnable() {
             public void run() {
-                text.setText("" + ((int)(((100 + (Math.random() * 10)))))+" BPM"); //set random 100 vary 20
+                iterations = iterations + 1;
+                beatsPerMin = (iterations <67 || iterations > 83)?((int)(((100 + (Math.random() * 10))))):((int)(((170 + (Math.random() * 7)))));
+                if(beatsPerMin>130) {
+                    rl.setBackgroundColor(getResources().getColor(R.color.red));
+                    text.setTextColor(getResources().getColor(R.color.white));
+                }
+                else {
+                    rl.setBackgroundColor(getResources().getColor(R.color.white));
+                    text.setTextColor(getResources().getColor(R.color.black));
+                }
+                text.setText("" + beatsPerMin +" BPM"); //set random 100 vary 20
                 h.postDelayed(this, delay);
             }
         }, delay);
